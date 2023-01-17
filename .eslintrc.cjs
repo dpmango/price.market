@@ -15,6 +15,7 @@ module.exports = {
   rules: {
     quotes: ['error', 'single'],
     'prettier/prettier': 'error',
+    'vue/multi-word-component-names': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
   },
 }

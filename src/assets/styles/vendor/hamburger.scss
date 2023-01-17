@@ -1,0 +1,168 @@
+// Hamburger
+$width: 26px;
+$height: 18px;
+$span2: 8px;
+$span3: 16px;
+$barHeight: 2px;
+$bez: cubic-bezier(0.8, 0.5, 0.2, 1.4);
+
+.hamburger {
+  position: relative;
+  width: $width;
+  height: $height;
+  padding: 0;
+  background-color: transparent;
+  border-style: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.4s linear;
+  span {
+    width: 100%;
+    height: $barHeight;
+    background-color: var(--color-font);
+    display: block;
+    position: absolute;
+    border-radius: 2px;
+    transition: all 0.25s ease;
+    will-change: transform;
+
+    &:nth-child(1) {
+      top: 0;
+      left: 0;
+    }
+
+    &:nth-child(2) {
+      top: $span2;
+      right: 0;
+    }
+
+    &:nth-child(3) {
+      top: $span3;
+      left: 0;
+    }
+  }
+
+  &._active {
+    transform: translate3d(0, -2px, 0);
+    transition: all 0.55s 0.35s linear;
+
+    span {
+      &:nth-child(2) {
+        animation: span2 0.75s forwards $bez;
+      }
+
+      &:nth-child(3) {
+        animation: span3 0.4s forwards $bez;
+        animation-delay: 0.35s;
+      }
+
+      &:nth-child(1) {
+        animation: span1 0.4s forwards $bez;
+        animation-delay: 0.55s;
+      }
+    }
+  }
+
+  span {
+    &:nth-child(1) {
+      animation: span1_close 0.4s forwards $bez;
+    }
+    &:nth-child(2) {
+      animation: span2_close 0.4s forwards $bez;
+    }
+
+    &:nth-child(3) {
+      animation: span3_close 0.4s forwards $bez;
+    }
+  }
+}
+
+// dot
+@keyframes span2 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  20%,
+  40%,
+  50%,
+  80%,
+  100% {
+    width: $barHeight * 2;
+    height: $barHeight * 2;
+    border-radius: 50%;
+  }
+
+  20% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  40% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(0, 7px) scale(1);
+  }
+
+  80% {
+    transform: translate(0, -7px) scale(1);
+  }
+
+  100% {
+    transform: translate(0, 20px) scale(0);
+  }
+}
+
+@keyframes span1 {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  60% {
+    transform: rotate(-110deg) translate(-3px, -3px);
+  }
+  100% {
+    transform: rotate(-45deg) translate(-8px, 8px);
+  }
+}
+
+@keyframes span3 {
+  0% {
+    transform: translate(0, 0);
+  }
+  60% {
+    transform: rotate(80deg) translate(-3px, -3px);
+  }
+  100% {
+    transform: rotate(45deg) translate(-3px, -3px);
+  }
+}
+
+@keyframes span1_close {
+  0% {
+    transform: rotate(-45deg) translate(-$span2, $span2);
+  }
+
+  100% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+}
+@keyframes span2_close {
+  0% {
+    transform: translate(0, $span3) scale(0);
+  }
+
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+@keyframes span3_close {
+  0% {
+    transform: rotate(45deg) translate(-3px, -3px);
+  }
+
+  100% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+}
