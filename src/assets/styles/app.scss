@@ -2,12 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'utilities/index';
-@import 'theme';
-
-@import 'vendor/normalize';
 @import 'vendor/hamburger';
 
 @import 'layout/general';
 @import 'layout/fonts';
-@import 'layout/grid';
+
+@import 'elements/transitions';

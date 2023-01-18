@@ -1,8 +1,8 @@
 // Hamburger
-$width: 26px;
-$height: 18px;
-$span2: 8px;
-$span3: 16px;
+$width: 16px;
+$height: 14px;
+$span2: 6px;
+$span3: 12px;
 $barHeight: 2px;
 $bez: cubic-bezier(0.8, 0.5, 0.2, 1.4);
 
@@ -19,7 +19,7 @@ $bez: cubic-bezier(0.8, 0.5, 0.2, 1.4);
   span {
     width: 100%;
     height: $barHeight;
-    background-color: var(--color-font);
+    background-color: #2e2b3b;
     display: block;
     position: absolute;
     border-radius: 2px;
@@ -102,15 +102,15 @@ $bez: cubic-bezier(0.8, 0.5, 0.2, 1.4);
   }
 
   50% {
-    transform: translate(0, 7px) scale(1);
+    transform: translate(0, 6px) scale(1);
   }
 
   80% {
-    transform: translate(0, -7px) scale(1);
+    transform: translate(0, -6px) scale(1);
   }
 
   100% {
-    transform: translate(0, 20px) scale(0);
+    transform: translate(0, 16px) scale(0);
   }
 }
 
@@ -120,10 +120,10 @@ $bez: cubic-bezier(0.8, 0.5, 0.2, 1.4);
   }
 
   60% {
-    transform: rotate(-110deg) translate(-3px, -3px);
+    transform: rotate(-110deg) translate(-2px, -2px);
   }
   100% {
-    transform: rotate(-45deg) translate(-8px, 8px);
+    transform: rotate(-45deg) translate(-6px, 5.5px);
   }
 }
 
@@ -132,10 +132,10 @@ $bez: cubic-bezier(0.8, 0.5, 0.2, 1.4);
     transform: translate(0, 0);
   }
   60% {
-    transform: rotate(80deg) translate(-3px, -3px);
+    transform: rotate(80deg) translate(-3px, -2.5px);
   }
   100% {
-    transform: rotate(45deg) translate(-3px, -3px);
+    transform: rotate(45deg) translate(-3px, -2.5px);
   }
 }
 

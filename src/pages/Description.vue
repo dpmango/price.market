@@ -2,7 +2,7 @@
   <main>
     <Suspense>
       <template #default>
-        <PostCategories />
+        <PostDescription />
       </template>
       <template #fallback>
         <UiLoader />
@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { useHead } from '@vueuse/head'
-import { PostCategories } from '@c/Post'
+import { PostDescription } from '@c/Post'
 import { UiLoader } from '@c/Ui'
 
 useHead({

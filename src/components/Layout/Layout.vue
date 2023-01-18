@@ -16,8 +16,5 @@ import { LayoutHeader } from '@c/Layout'
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  .footer {
-    margin-top: auto;
-  }
 }
 </style>

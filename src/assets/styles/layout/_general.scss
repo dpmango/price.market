@@ -11,9 +11,9 @@ html {
 }
 
 body {
-  background: var(--color-background);
-  color: var(--color-font);
-  font-family: var(--font-base);
+  background: #fff;
+  color: #2e2b3b;
+  font-family: 'Euclid Square', sans-serif;
   font-size: 16px;
   line-height: 1;
   min-width: 320px;
@@ -23,12 +23,6 @@ body {
   -webkit-text-size-adjust: none;
   &.js-locked {
     overflow: hidden;
-  }
-}
-
-@include r($md) {
-  body {
-    font-size: 14px;
   }
 }
 

@@ -1,0 +1,23 @@
+.slide-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-leave-active {
+  transition: all 0.3s ease;
+}
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateY(-10px);
+  opacity: 0;
+}
+
+.slide-enter-to,
+.slide-leave-from {
+  max-height: 999px;
+  overflow: hidden;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  overflow: hidden;
+  max-height: 0;
+}

@@ -1,9 +1,88 @@
 /* eslint-env node */
 /** @type {import('tailwindcss').Config} */
+
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {},
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      black: colors.black,
+      white: colors.white,
+      gray: {
+        50: '#F1F0F8',
+        100: '#E7E6EF',
+        200: '#D4D1E0',
+        300: '#C0BDD1',
+        400: '#A9A5C0',
+        500: '#938DB0',
+        600: '#797298',
+        700: '#5C5676',
+        800: '#454158',
+        900: '#2E2B3B',
+      },
+      yellow: {
+        50: '#FFFDE7',
+        100: '#FFF9C4',
+        200: '#FFF59D',
+        300: '#FFF176',
+        400: '#FFEE58',
+        500: '#FFEB3B',
+        600: '#FDD835',
+        700: '#FBC02D',
+        800: '#F9A825',
+        900: '#F57F17',
+      },
+      blue: {
+        50: '#E3F2FD',
+        100: '#BBDEFB',
+        200: '#90CAF9',
+        300: '#64B5F6',
+        400: '#42A5F5',
+        500: '#2196F3',
+        600: '#1E88E5',
+        700: '#1976D2',
+        800: '#1565C0',
+        900: '#0D47A1',
+      },
+      green: {
+        50: '#D6EDC8',
+        100: '#D6EDC8',
+        200: '#BBE1A5',
+        300: '#A0D581',
+        400: '#8BCC65',
+        500: '#76C34A',
+        600: '#6BB342',
+        700: '#5E9F38',
+        800: '#518B2F',
+        900: '#3A691E',
+      },
+      red: {
+        50: '#FBE9E7',
+        100: '#FFCCBC',
+        200: '#FFAB91',
+        300: '#FF8A65',
+        400: '#FF7043',
+        500: '#FF5722',
+        600: '#F4511E',
+        700: '#E64A19',
+        800: '#D84315',
+        900: '#BF360C',
+      },
+    },
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '1.25rem',
+        lg: '1.25rem',
+        xl: '1.25rem',
+        '2xl': '2rem',
+      },
+    },
   },
   plugins: [],
 }

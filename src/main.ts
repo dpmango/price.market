@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { createHead } from '@vueuse/head'
+import 'virtual:svg-icons-register'
 
 import App from '@/App.vue'
 import router from '@/core/router'
