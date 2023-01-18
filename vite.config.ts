@@ -25,4 +25,11 @@ export default defineConfig({
       '@c': fileURLToPath(new URL('./src/components', import.meta.url)),
     },
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@import "@/assets/styles/utils/index.scss";',
+      },
+    },
+  },
 })

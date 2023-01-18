@@ -1,5 +1,5 @@
 <template>
-  <header class="header border-b border-gray-100 py-0.5" ref="headerRef">
+  <header class="header border-b border-gray-100 py-0.5 md:py-px" ref="headerRef">
     <div class="container">
       <div class="flex items-center">
         <RouterLink to="/" class="pr-2">
