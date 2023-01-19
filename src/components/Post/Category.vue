@@ -1,5 +1,5 @@
 <template>
-  <div :class="[!isNavCategory && 'ml-4']" :data-id="category.id">
+  <div :class="['category', !isNavCategory && 'ml-4']" :data-id="category.id">
     <div class="group mt-3 flex cursor-pointer items-center" @click="handleCategoryClick">
       <div
         :class="[

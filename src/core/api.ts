@@ -1,7 +1,6 @@
 import { ofetch } from 'ofetch'
 
-export const useApi = (url: string, options = {}) => {
-  console.log(import.meta.env)
+export const useApi = async (url: string, options = {}) => {
   const fetchUrl = `${import.meta.env.VITE_API_URL}/${url}`
 
   return ofetch(fetchUrl, options)
