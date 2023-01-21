@@ -14,9 +14,9 @@
             :key="idx"
           >
             <SvgIcon v-if="li.icon" :name="li.icon" class="text-xl" />
-            <span v-if="li.label" :class="[li.icon && 'pl-1', 'text-sm font-bold']">{{
-              li.label
-            }}</span>
+            <span v-if="li.label" :class="[li.icon && 'pl-1', 'text-sm font-bold']">
+              {{ li.label }}
+            </span>
           </RouterLink>
         </div>
 
@@ -33,10 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useUiStore } from '@/core'
 import { RouterLink } from 'vue-router'
-import { SvgIcon } from '@c/Ui'
 
 const ui = useUiStore()
 

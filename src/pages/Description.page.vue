@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <PageWithTitle title="Создайте обьявление">
     <Suspense>
       <template #default>
         <PostDescription />
@@ -8,13 +8,12 @@
         <UiLoader />
       </template>
     </Suspense>
-  </main>
+  </PageWithTitle>
 </template>
 
 <script setup lang="ts">
-import { useHead } from '@vueuse/head'
+import { PageWithTitle } from '@c/Layout'
 import { PostDescription } from '@c/Post'
-import { UiLoader } from '@c/Ui'
 
 useHead({
   title: 'Pirce.market | Создание обьявления',

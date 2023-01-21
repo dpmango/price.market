@@ -1,7 +1,4 @@
-import { ref, computed } from 'vue'
 import type { Ref } from 'vue'
-import { defineStore, acceptHMRUpdate } from 'pinia'
-import { useApi } from '@/core'
 import type { ICategoryDto, ICategoryChilds } from '@/core/interface/Category'
 import type { IOrder } from '@/core/interface/Order'
 

@@ -29,12 +29,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-import type { ICategoryChilds } from '@/core/interface/Category'
-import { SvgIcon } from '@c/Ui'
 import { PostCategory } from '@c/Post'
-import { usePostStore } from '@/core'
+
+import type { ICategoryChilds } from '@/core/interface/Category'
 
 const props = defineProps<{ category: ICategoryChilds; activeCategoryId?: number | null }>()
 const emit = defineEmits(['onToggle'])
