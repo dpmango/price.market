@@ -12,7 +12,7 @@ export const isMobile = () => {
 }
 
 export const isIos = () => {
-  return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
+  return /iPad|iPhone|iPod/.test(navigator.userAgent)
 }
 
 export const isAndroid = () => {

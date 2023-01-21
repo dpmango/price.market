@@ -1,6 +1,6 @@
-export function useState(initialState) {
-  const state = ref(initialState)
-  const setState = (newState) => {
+export function useState(initialState: any) {
+  const state = ref<any>(initialState)
+  const setState = (newState: any) => {
     state.value = newState
   }
 

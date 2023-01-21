@@ -11,7 +11,7 @@ export const useFormNav = ({ url }: IUseForm) => {
   const loadingBack = ref(false)
   const requestError = ref(null)
 
-  const requestPrev = async (data) => {
+  const requestPrev = async (data: any) => {
     console.log('👽 request', data)
     loadingBack.value = true
 
@@ -32,7 +32,7 @@ export const useFormNav = ({ url }: IUseForm) => {
     return res
   }
 
-  const requestNext = async (data) => {
+  const requestNext = async (data: any) => {
     console.log('👽 request', data)
     loadingNext.value = true
 

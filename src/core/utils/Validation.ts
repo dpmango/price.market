@@ -55,7 +55,7 @@ export function valid_phone(value: string) {
     arr.push('Номер телефона должен состоять из 10 цифр.')
   }
 
-  if (![3, 4, 5, 6, 8, 9].includes(num[0] * 1)) {
+  if (![3, 4, 5, 6, 8, 9].includes(+num[0] * 1)) {
     valid = false
     arr.push('Проверьте код оператора или региона.')
   }
@@ -66,7 +66,7 @@ export function valid_phone(value: string) {
   }
 }
 
-export function valid_email(v) {
+export function valid_email(v: string) {
   const value = clearString(v)
 
   // const reg = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,8})$/

@@ -127,7 +127,7 @@ const openModal = () => {
     padding: 30px;
     transform: translate3d(0, 40px, 0);
     will-change: transform;
-    transition: opacity 0.2s $ease, transform 0.35s $ease;
+    transition: opacity 0.2s ease, transform 0.35s ease;
   }
 
   &__title {
@@ -142,7 +142,7 @@ const openModal = () => {
     padding: 5px;
     cursor: pointer;
     background: #fff;
-    transition: color 0.25s $ease;
+    transition: color 0.25s ease;
     &:hover {
       color: $colorRed;
     }
