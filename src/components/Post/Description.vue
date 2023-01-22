@@ -7,6 +7,7 @@
         placeholder="Введите текст объявления"
         rows="8"
         :maxRows="8"
+        :maxCount="1500"
         :value="text"
         :error="errors.text"
         :focusOnMount="true"
@@ -18,6 +19,7 @@
       <div class="h-[60px] rounded-lg border border-dashed border-gray-200 bg-gray-50"></div>
     </div>
 
+    <!-- location-->
     <div class="mt-4">
       <UiButton
         iconLeft="location"
@@ -30,46 +32,31 @@
       </UiButton>
 
       <template v-else>
-        <div class="mb-1 flex items-center">
-          <div class="gray-800 block text-base font-bold">Локация</div>
-          <span
-            class="ml-auto flex-shrink-0 cursor-pointer text-xl leading-[0] text-gray-200 transition hover:text-gray-500"
-          >
-            <SvgIcon name="minus-circle" />
-          </span>
-        </div>
+        <AtomBlockNav title="Локация" @onMinusClick="postStore.resetLocation()" />
 
-        <div class="rounded-lg bg-gray-50 py-3 px-4">
-          <span class="text-sm" v-if="order.location.country">{{ order.location.country }}</span>
-          <span class="text-sm" v-if="order.location.city">, г. {{ order.location.city }}</span>
-          <span class="text-sm text-gray-500" v-if="order.location.address">
-            <br />{{ order.location.address }}
-          </span>
-
-          <div class="mt-2">
-            <UiButton size="small" theme="secondary" @click="ui.setModal({ name: 'location' })">
-              Изменить
-            </UiButton>
-          </div>
-        </div>
+        <AtomLocation
+          :location="order.location"
+          @onChangeRequest="ui.setModal({ name: 'location' })"
+        />
       </template>
 
       <PostLocation />
     </div>
 
-    <div class="mt-2">
+    <!-- price-->
+    <div class="mt-4" :class="[!hasPrice && 'mt-2']">
       <UiButton
         iconLeft="money"
         theme="secondary"
         size="small"
-        v-show="!isAddingPrice"
-        @click="isAddingPrice = true"
+        v-show="!hasPrice"
+        @click="hasPrice = true"
       >
         Добавить цену
       </UiButton>
 
       <UiInput
-        v-show="isAddingPrice"
+        v-show="hasPrice"
         label="Цена"
         placeholder="1 000"
         inputmode="numeric"
@@ -79,6 +66,7 @@
       />
     </div>
 
+    <!-- nav-->
     <div
       class="fixed left-0 bottom-0 right-0 z-[5] flex border-t border-gray-100 bg-white p-2 md:static md:mt-4 md:flex-col md:border-0 md:bg-transparent md:p-0"
     >
@@ -90,7 +78,9 @@
         iconLeft="arrow-left"
         :loading="loadingNext"
       />
-      <UiButton @click="next" block :loading="loadingNext"> Далее </UiButton>
+      <UiButton @click="next" block :loading="loadingNext" :disabled="nextDisabled">
+        Далее
+      </UiButton>
 
       <UiButton
         class="hidden md:mt-3 md:inline-block"
@@ -107,51 +97,52 @@
 
 <script setup lang="ts">
 import { PostLocation } from '@c/Post'
+import { AtomBlockNav } from '../Ui'
 
 const postStore = usePostStore()
 const ui = useUiStore()
 const { order } = storeToRefs(postStore)
 
 const router = useRouter()
+const route = useRoute()
 
+// form constructor
 const { requestError, loadingNext, loadingBack, requestPrev, requestNext } = useFormNav({
-  url: 'step-2',
+  urlNext: 'post',
+  urlPrev: '',
 })
 
 const { errors, setErrors, setFieldValue, validate } = useForm({
   initialValues: {
-    text: '',
-    location: '',
-    price: '',
+    text: order.value.text || '',
+    price: order.value.price.value || '',
+    currenct: order.value.price.currency || '',
   },
 })
 
 const { value: text, meta: textMeta } = useField('text', (v: any) => {
-  return clearString(v) ? true : 'Текст обязателен для заполнения'
-})
-
-// location
-const location = ref({
-  country: '',
-  city: '',
-  address: '',
+  const value = clearString(v)
+  if (!value.length) return 'Текст обязателен для заполнения'
+  if (value.length < 10) return 'Минимум 10 знаков'
+  return true
 })
 
 // price
-const isAddingPrice = ref(false)
+const hasPrice = ref(false)
 
 const { value: price, meta: priceMeta } = useField('price', (v: any) => {
-  if (!isAddingPrice.value) return true
+  if (!hasPrice.value) return true
   return clearString(v) ? true : 'Текст обязателен для заполнения'
 })
 
 const { value: currency, meta: currencyMeta } = useField('currency', (v: any) => {
-  if (!isAddingPrice.value) return true
+  if (!hasPrice.value) return true
   return clearString(v) ? true : 'Текст обязателен для заполнения'
 })
 
+// navigation
 const nextDisabled = computed(() => {
-  return !textMeta.valid || !priceMeta.valid
+  return !textMeta.valid
 })
 
 const prev = async () => {
@@ -163,14 +154,16 @@ const next = async () => {
   const { valid, errors } = await validate()
   if (!valid) return
 
-  await requestNext({
+  const data = await requestNext({
     content: text.value,
     attachments: ['attachment_id'],
-    location: location.value,
+    location: order.value.location,
     price: {
       currency: currency.value,
       value: price.value,
     },
   })
+
+  router.push(`/create/${route.params.id}/${data.id}`)
 }
 </script>

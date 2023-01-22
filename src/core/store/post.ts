@@ -2,15 +2,22 @@ import type { Ref } from 'vue'
 import type { ICategoryDto, ICategoryChilds } from '@/core/interface/Category'
 import type { IOrder } from '@/core/interface/Order'
 
+const initialState = {
+  categoryId: null,
+  text: '',
+  price: {
+    currency: 'RUR',
+    value: 0,
+  },
+  location: {
+    country: '',
+    city: '',
+    address: '',
+  },
+}
+
 export const usePostStore = defineStore('post', () => {
-  const order = ref({
-    categoryId: null,
-    location: {
-      country: null,
-      city: null,
-      address: null,
-    },
-  }) as Ref<IOrder>
+  const order = ref({ ...initialState }) as Ref<IOrder>
 
   const categories = ref([]) as Ref<ICategoryDto[]>
 
@@ -38,24 +45,39 @@ export const usePostStore = defineStore('post', () => {
   }
 
   const updateOrder = (payload: Partial<IOrder>) => {
-    order.value = {
+    const newState = {
       ...order.value,
       ...payload,
+    }
+
+    console.log('store update order ::', { newState })
+    order.value = newState
+
+    return newState
+  }
+
+  const resetLocation = () => {
+    console.log('ask to reset')
+    order.value.location = {
+      ...initialState.location,
     }
   }
 
   const resetOrder = () => {
     order.value = {
-      categoryId: null,
-      location: {
-        country: null,
-        city: null,
-        address: null,
-      },
+      ...initialState,
     }
   }
 
-  return { categories, categoriesList, getCategories, order, updateOrder, resetOrder }
+  return {
+    categories,
+    categoriesList,
+    getCategories,
+    order,
+    updateOrder,
+    resetLocation,
+    resetOrder,
+  }
 })
 
 if (import.meta.hot) {

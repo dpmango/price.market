@@ -15,6 +15,16 @@ const router = createRouter({
       component: () => import('@/pages/Description.page.vue'),
     },
     {
+      path: '/create/:id',
+      name: 'description',
+      component: () => import('@/pages/Description.page.vue'),
+    },
+    {
+      path: '/create/:id/:dataID',
+      name: 'details',
+      component: () => import('@/pages/Details.page.vue'),
+    },
+    {
       path: '/ui',
       name: 'ui',
       component: () => import('@/pages/Ui.page.vue'),

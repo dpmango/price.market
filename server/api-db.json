@@ -24,7 +24,6 @@
       "name": "Услуги",
       "emoji": "🙋"
     },
-
     {
       "id": 5,
       "parent_id": null,
@@ -43,7 +42,6 @@
       "name": "Бывшие в употреблении",
       "emoji": "🚗"
     },
-
     {
       "id": 6,
       "parent_id": null,
@@ -61,6 +59,49 @@
       "parent_id": 6,
       "name": "Арендное жилье на вторичном рынке - тест длинного заголовка",
       "emoji": "🏢"
+    }
+  ],
+  "post": [
+    {
+      "content": "fwefwe wef wef ",
+      "attachments": [
+        "attachment_id"
+      ],
+      "location": {
+        "country": "Россия",
+        "city": "",
+        "address": ""
+      },
+      "price": {},
+      "id": 1
+    },
+    {
+      "content": "fwefwe wef wef ddwq",
+      "attachments": [
+        "attachment_id"
+      ],
+      "location": {
+        "country": "Россия",
+        "city": "",
+        "address": ""
+      },
+      "price": {},
+      "id": 2
+    },
+    {
+      "content": "fefwefweffwewe",
+      "attachments": [
+        "attachment_id"
+      ],
+      "location": {
+        "country": "Россия",
+        "city": "",
+        "address": ""
+      },
+      "price": {
+        "value": ""
+      },
+      "id": 3
     }
   ]
 }

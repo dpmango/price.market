@@ -19,6 +19,7 @@
         placeholder=""
         :optional="true"
         :value="city"
+        :error="errors.city"
         @onChange="(v: string) => setFieldValue('city', v)"
       />
     </div>
@@ -30,6 +31,7 @@
         placeholder="Введите текст объявления"
         :optional="true"
         :value="address"
+        :error="errors.address"
         @onChange="(v: string) => setFieldValue('address', v)"
       />
     </div>
@@ -66,7 +68,7 @@ const { value: city, meta: cityMeta } = useField('city', (v: any) => {
 
 const { value: address, meta: addressMeta } = useField('address', (v: any) => {
   if (!clearString(v)) return true
-  return valid_adress(v) ? true : 'Текст обязателен для заполнения'
+  return valid_adress(v) ? true : 'Укажите полный адрес, с номером дома и/или квартиры'
 })
 
 const loading = ref(false)

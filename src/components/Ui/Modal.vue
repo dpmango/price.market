@@ -89,7 +89,7 @@ const openModal = () => {
   }
 
   &__body {
-    @apply flex w-full max-w-sm items-center p-0 md:p-4;
+    @apply flex w-full items-center p-0 md:max-w-sm md:p-4;
   }
 
   &__container {

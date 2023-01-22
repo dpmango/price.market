@@ -1,9 +1,10 @@
 import { useToast } from 'vue-toast-notification'
 export interface IUseForm {
-  url: string
+  urlPrev: string
+  urlNext: string
 }
 
-export const useFormNav = ({ url }: IUseForm) => {
+export const useFormNav = ({ urlPrev, urlNext }: IUseForm) => {
   const api = useApi
   const toast = useToast()
 
@@ -15,7 +16,7 @@ export const useFormNav = ({ url }: IUseForm) => {
     console.log('👽 request', data)
     loadingBack.value = true
 
-    const res = await api(`order/${url}/back`, {
+    const res = await api(urlPrev, {
       method: 'POST',
       body: data,
     })
@@ -36,7 +37,7 @@ export const useFormNav = ({ url }: IUseForm) => {
     console.log('👽 request', data)
     loadingNext.value = true
 
-    const res = await api(`order/${url}/next`, {
+    const res = await api(urlNext, {
       method: 'POST',
       body: data,
     })
