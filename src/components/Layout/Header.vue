@@ -60,7 +60,7 @@ const menuList = ref([
     label: 'Профиль',
   },
   {
-    to: '/',
+    to: '/ui',
     icon: 'heart',
   },
 ])

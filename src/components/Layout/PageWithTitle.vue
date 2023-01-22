@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="title">
     <h1 class="pt-3 pb-4 text-2xl font-bold md:pb-5 md:pt-4 md:text-4xl">{{ title }}</h1>
   </div>
 
-  <div class="wrapper md:rounded-t-xl md:bg-gray-50 md:py-5">
+  <div class="wrapper md:rounded-t-xl md:bg-gray-50 md:py-5" :class="!title && '_noTitle'">
     <div class="container">
       <div class="md:rounded-xl md:bg-white md:px-5 md:py-7">
         <slot />
@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ title: string }>()
+defineProps<{ title?: string }>()
 </script>
 
 <style lang="scss" scoped>
@@ -22,6 +22,9 @@ defineProps<{ title: string }>()
     min-height: calc(100vh - 55px - 76px);
     display: flex;
     flex-direction: column;
+    &._noTitle {
+      min-height: calc(100vh - 55px);
+    }
     .container {
       flex: 1 0 auto;
       display: flex;

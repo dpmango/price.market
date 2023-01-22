@@ -5,6 +5,11 @@ import type { IOrder } from '@/core/interface/Order'
 export const usePostStore = defineStore('post', () => {
   const order = ref({
     categoryId: null,
+    location: {
+      country: null,
+      city: null,
+      address: null,
+    },
   }) as Ref<IOrder>
 
   const categories = ref([]) as Ref<ICategoryDto[]>
@@ -42,6 +47,11 @@ export const usePostStore = defineStore('post', () => {
   const resetOrder = () => {
     order.value = {
       categoryId: null,
+      location: {
+        country: null,
+        city: null,
+        address: null,
+      },
     }
   }
 

@@ -5,7 +5,7 @@
       <div class="modal__container">
         <div class="pr-4 text-2xl font-bold" v-if="title">{{ title }}</div>
         <div class="modal__close" @click="closeModal">
-          <SvgIcon name="close"></SvgIcon>
+          <SvgIcon name="close" />
         </div>
         <slot></slot>
         <div class="modal__actions" v-if="haveActions">
@@ -69,7 +69,7 @@ const openModal = () => {
 
 <style lang="scss">
 .modal {
-  @apply pointer-events-none fixed left-0 top-0 z-[999] flex h-full w-full items-center;
+  @apply pointer-events-none fixed left-0 top-0 z-[999] flex h-full w-full items-end justify-center md:items-center;
 
   &._visible {
     @apply pointer-events-auto;
@@ -89,16 +89,16 @@ const openModal = () => {
   }
 
   &__body {
-    @apply flex w-full max-w-sm items-center p-4;
+    @apply flex w-full max-w-sm items-center p-0 md:p-4;
   }
 
   &__container {
-    @apply relative z-[5] mx-auto w-full rounded-lg bg-white p-4 opacity-0;
+    @apply relative z-[5] mx-auto w-full rounded-lg bg-white py-3 px-4 opacity-0;
     @apply translate-y-10 transition will-change-transform;
   }
 
   &__close {
-    @apply absolute right-4 top-4 cursor-pointer bg-white p-2 text-lg text-gray-500 transition;
+    @apply absolute right-2 top-2 cursor-pointer bg-white p-2 text-xl leading-[0] text-gray-500 transition;
     @apply hover:text-red-700;
   }
 

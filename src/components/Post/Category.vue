@@ -54,7 +54,7 @@ const handleCategoryClick = () => {
     emit('onToggle', id)
   } else {
     postStore.updateOrder({ categoryId: id })
-    router.push(`/${id}`)
+    router.push(`/create/${id}`)
   }
 }
 </script>

@@ -24,13 +24,37 @@
         theme="secondary"
         size="small"
         @click="ui.setModal({ name: 'location' })"
+        v-if="!order.location.country"
       >
         Добавить локацию
       </UiButton>
 
-      <UiModal name="location">
-        <PostLocation />
-      </UiModal>
+      <template v-else>
+        <div class="mb-1 flex items-center">
+          <div class="gray-800 block text-base font-bold">Локация</div>
+          <span
+            class="ml-auto flex-shrink-0 cursor-pointer text-xl leading-[0] text-gray-200 transition hover:text-gray-500"
+          >
+            <SvgIcon name="minus-circle" />
+          </span>
+        </div>
+
+        <div class="rounded-lg bg-gray-50 py-3 px-4">
+          <span class="text-sm" v-if="order.location.country">{{ order.location.country }}</span>
+          <span class="text-sm" v-if="order.location.city">, г. {{ order.location.city }}</span>
+          <span class="text-sm text-gray-500" v-if="order.location.address">
+            <br />{{ order.location.address }}
+          </span>
+
+          <div class="mt-2">
+            <UiButton size="small" theme="secondary" @click="ui.setModal({ name: 'location' })">
+              Изменить
+            </UiButton>
+          </div>
+        </div>
+      </template>
+
+      <PostLocation />
     </div>
 
     <div class="mt-2">
@@ -106,21 +130,24 @@ const { value: text, meta: textMeta } = useField('text', (v: any) => {
   return clearString(v) ? true : 'Текст обязателен для заполнения'
 })
 
-// price
-const isAddingPrice = ref(false)
-
-const { value: price, meta: priceMeta } = useField('price', (v: any) => {
-  return clearString(v) ? true : 'Текст обязателен для заполнения'
-})
-
-const { value: currency, meta: currencyMeta } = useField('currency', (v: any) => {
-  return clearString(v) ? true : 'Текст обязателен для заполнения'
-})
-
+// location
 const location = ref({
   country: '',
   city: '',
   address: '',
+})
+
+// price
+const isAddingPrice = ref(false)
+
+const { value: price, meta: priceMeta } = useField('price', (v: any) => {
+  if (!isAddingPrice.value) return true
+  return clearString(v) ? true : 'Текст обязателен для заполнения'
+})
+
+const { value: currency, meta: currencyMeta } = useField('currency', (v: any) => {
+  if (!isAddingPrice.value) return true
+  return clearString(v) ? true : 'Текст обязателен для заполнения'
 })
 
 const nextDisabled = computed(() => {

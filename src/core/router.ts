@@ -10,9 +10,19 @@ const router = createRouter({
       component: Homepage,
     },
     {
-      path: '/:id',
+      path: '/create/:id',
       name: 'description',
       component: () => import('@/pages/Description.page.vue'),
+    },
+    {
+      path: '/ui',
+      name: 'ui',
+      component: () => import('@/pages/Ui.page.vue'),
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'PageNotFound',
+      component: () => import('@/pages/NotFound.page.vue'),
     },
   ],
 })

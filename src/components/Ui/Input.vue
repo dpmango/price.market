@@ -1,8 +1,8 @@
 <template>
   <div class="input relative z-[1]" :class="modifiers">
-    <label class="mb-1 block text-base font-bold" v-if="label" :for="id">
+    <label class="gray-800 mb-1 block text-base font-bold" v-if="label" :for="id">
       <template v-if="typeof label === 'string'">{{ label }}</template>
-      <span v-if="typeof error === 'undefined'" class="font-normal"> (не обязательно) </span>
+      <span v-if="optional" class="font-normal"> (не обязательно) </span>
     </label>
 
     <!-- center -->
@@ -76,6 +76,7 @@ const props = defineProps<{
   type?: string
   placeholder?: string
   name?: string
+  optional?: boolean
   theme?: 'primary' | 'secondary'
   icon?: string
   iconPosition?: 'left' | 'right'
