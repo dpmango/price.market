@@ -9,6 +9,7 @@ declare global {
   const PostCategories: typeof import('./src/components/Post/index')['PostCategories']
   const PostCategory: typeof import('./src/components/Post/index')['PostCategory']
   const PostDescription: typeof import('./src/components/Post/index')['PostDescription']
+  const PostLocation: typeof import('./src/components/Post/index')['PostLocation']
   const SvgIcon: typeof import('./src/components/Ui/index')['SvgIcon']
   const UiButton: typeof import('./src/components/Ui/index')['UiButton']
   const UiInput: typeof import('./src/components/Ui/index')['UiInput']

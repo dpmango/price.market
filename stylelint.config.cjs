@@ -9,7 +9,7 @@ module.exports = {
   // add your custom config here
   // https://stylelint.io/user-guide/configuration
   rules: {
-    'at-rule-no-unknown': [true, { ignoreAtRules: ['tailwind'] }],
+    'at-rule-no-unknown': [true, { ignoreAtRules: ['tailwind', 'apply'] }],
     'function-no-unknown': [true, { ignoreFunctions: ['theme'] }],
     'declaration-empty-line-before': null,
     'no-descending-specificity': null,

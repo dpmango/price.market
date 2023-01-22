@@ -1,11 +1,11 @@
 <template>
-  <div class="modal" :class="[show && 'visible', size && `_${size}`]">
+  <div class="modal" :class="[show && '_visible', size && `_${size}`]">
     <div class="modal__bg" @click="closeModal"></div>
     <div class="modal__body">
       <div class="modal__container">
-        <div class="modal__title" v-if="title">{{ title }}</div>
+        <div class="pr-4 text-2xl font-bold" v-if="title">{{ title }}</div>
         <div class="modal__close" @click="closeModal">
-          <nuxt-icon name="close"></nuxt-icon>
+          <SvgIcon name="close"></SvgIcon>
         </div>
         <slot></slot>
         <div class="modal__actions" v-if="haveActions">
@@ -69,116 +69,51 @@ const openModal = () => {
 
 <style lang="scss">
 .modal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  z-index: 999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  // height: stretch;
-  pointer-events: none;
-  padding: 20px;
+  @apply pointer-events-none fixed left-0 top-0 z-[999] flex h-full w-full items-center;
 
-  &.visible {
-    pointer-events: all;
+  &._visible {
+    @apply pointer-events-auto;
     .modal {
       &__bg {
-        opacity: 1;
+        @apply opacity-100;
       }
       &__container {
-        opacity: 1;
-        transform: none;
+        @apply opacity-100;
+        @apply transform-none;
       }
     }
   }
 
   &__bg {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba($colorFont, 0.3);
-    transition: opacity ease 0.5s;
-    opacity: 0;
+    @apply fixed left-0 top-0 h-full w-full bg-gray-900 bg-opacity-50 opacity-0 transition;
   }
 
   &__body {
-    min-height: calc(100% - (1.75px * 2));
-    margin: 1.75px auto;
-    padding: 0 0px;
-    display: flex;
-    align-items: center;
-    max-width: 645px;
-    width: 100%;
+    @apply flex w-full max-w-sm items-center p-4;
   }
 
   &__container {
-    width: 100%;
-    position: relative;
-    z-index: 5;
-    opacity: 0;
-    margin: 0 auto 0;
-    background: #fff;
-    border-radius: 10px;
-    padding: 30px;
-    transform: translate3d(0, 40px, 0);
-    will-change: transform;
-    transition: opacity 0.2s ease, transform 0.35s ease;
+    @apply relative z-[5] mx-auto w-full rounded-lg bg-white p-4 opacity-0;
+    @apply translate-y-10 transition will-change-transform;
   }
 
-  &__title {
-    padding-right: 40px;
-  }
   &__close {
-    font-size: 30px;
-    color: $colorDisabled;
-    position: absolute;
-    right: 25px;
-    top: 25px;
-    padding: 5px;
-    cursor: pointer;
-    background: #fff;
-    transition: color 0.25s ease;
-    &:hover {
-      color: $colorRed;
-    }
+    @apply absolute right-4 top-4 cursor-pointer bg-white p-2 text-lg text-gray-500 transition;
+    @apply hover:text-red-700;
   }
 
   &__actions {
-    margin-top: 32px;
-    display: flex;
-    align-items: center;
-    margin-right: -16px;
+    @apply mt-8 -mr-4 flex items-center;
     button {
-      flex: 0 1 50%;
-      margin-right: 16px;
+      @apply mr-4 w-1/2 flex-shrink;
     }
   }
 
   &._wide {
     .modal {
       &__body {
-        max-width: 858px;
+        @apply max-w-xl;
       }
-    }
-  }
-}
-@include r($sm) {
-  .modal {
-    align-items: flex-end;
-    &__container {
-      overflow: auto;
-      padding: 20px;
-      height: initial;
-      border-radius: 15px 15px;
-    }
-    &__close {
-      right: 15px;
-      top: 15px;
     }
   }
 }

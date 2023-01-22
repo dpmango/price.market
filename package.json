@@ -32,7 +32,6 @@
     "@vueuse/core": "^9.11.1",
     "@vueuse/head": "^1.0.22",
     "dayjs": "^1.11.7",
-    "maska": "^2.1.5",
     "nanoid": "^4.0.0",
     "ofetch": "^1.0.0",
     "pinia": "^2.0.28",

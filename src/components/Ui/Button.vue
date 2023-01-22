@@ -1,23 +1,23 @@
 <template>
   <component
     :is="getElement"
-    :class="['button', theme, size, isEmpty && '_iconOnly', showLoader && '_loading']"
+    :class="['button', `_${theme}`, `_${size}`, isEmpty && '_iconOnly', showLoader && '_loading']"
     :href="href"
     :to="to"
     v-bind="$attrs"
   >
     <span class="button__content">
-      <i class="button__icon._left" v-if="iconLeft">
-        <SvgIcon :name="iconLeft" :fill="iconFill" />
+      <i class="button__icon _left" v-if="iconLeft">
+        <SvgIcon :name="iconLeft" />
       </i>
       <slot></slot>
-      <i class="button__icon._right" v-if="iconRight">
-        <SvgIcon :name="iconRight" :fill="iconFill" />
+      <i class="button__icon _right" v-if="iconRight">
+        <SvgIcon :name="iconRight" />
       </i>
     </span>
 
     <span class="button__loader" v-if="showLoader">
-      <!-- SvgIcon -->
+      <SvgIcon name="loader" />
     </span>
   </component>
 </template>
@@ -29,7 +29,7 @@ const props = defineProps({
   theme: {
     type: String,
     default: 'primary',
-    validator: (v: string) => ['', 'primary', 'link'].includes(v),
+    validator: (v: string) => ['', 'primary', 'secondary', 'link'].includes(v),
   },
   size: {
     type: String,
@@ -39,10 +39,7 @@ const props = defineProps({
   href: String,
   iconRight: String,
   iconLeft: String,
-  iconFill: {
-    type: Boolean,
-    default: false,
-  },
+
   to: String,
   loading: {
     type: Boolean,
@@ -85,137 +82,87 @@ watch(
 
 <style lang="scss" scoped>
 .button {
-  -webkit-appearance: none;
-  position: relative;
-  padding: 0;
-  display: inline-block;
-  border: 1px solid transparent;
-  box-sizing: border-box;
-  border-radius: 8px;
-  text-align: center;
-  overflow: hidden;
-  font-weight: 600;
-  text-transform: uppercase;
-  user-select: none;
-  cursor: pointer;
-  box-shadow: none;
-  transition: background 0.25s ease, color 0.25s ease, border 0.25s ease, outline 0.25s ease,
-    box-shadow 0.25s ease;
-
+  @apply relative cursor-pointer appearance-none overflow-hidden rounded-lg border border-transparent p-0 text-center shadow-none transition;
   &__content {
-    position: relative;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
+    @apply relative z-[1] inline-flex items-center justify-center;
   }
 
   &__icon {
-    flex: 0 0 auto;
-    font-size: 1.3334em;
+    @apply flex-shrink-0 text-xl leading-[0];
     &._left {
-      margin-right: 0.45em;
+      @apply mr-1;
     }
     &._right {
-      margin-left: 0.45em;
+      @apply ml-1;
     }
   }
   &._iconOnly {
     .button__icon {
-      margin-left: 0;
-      margin-right: 0;
+      @apply mx-0;
     }
   }
 
   &__loader {
-    position: absolute;
-    z-index: 3;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.1s ease;
-    .nuxt-icon {
+    @apply pointer-events-none absolute top-0 left-0 right-0 bottom-0 z-[3] inline-flex items-center justify-center opacity-0 transition;
+    svg {
       animation: rotateLoader 1s linear infinite;
     }
   }
 
   // themes
-  &.primary {
-    background: $colorPrimary;
-    color: $colorBg;
-    // &:focus {
-    // }
-    // &:hover {
-    // }
-    // &:active {
-    // }
+  &._primary {
+    @apply bg-yellow-600 text-gray-800;
+    @apply hover:bg-yellow-700;
+    @apply focus:bg-yellow-700 focus:shadow-[0px_0px_0px_2px_rgba(255,255,255,1),0px_0px_0px_3px_rgb(212,209,224,1)];
+    @apply active:bg-yellow-700 active:shadow-[0px_0px_0px_2px_rgb(245,127,23,1)];
+    @apply disabled:pointer-events-none disabled:bg-gray-100;
+  }
 
-    &[disabled] {
-      background: $colorBorderLight;
-      color: $colorDisabled;
-      pointer-events: none;
-    }
+  &._secondary {
+    @apply border-gray-200 bg-gray-50 text-gray-800;
+    @apply hover:border-gray-300 hover:bg-gray-100;
+    @apply focus:border-gray-300 focus:bg-gray-100;
+    @apply active:bg-gray-300;
+    @apply disabled:pointer-events-none disabled:bg-gray-100;
   }
 
   // sizes
-  &.large {
+  &._large {
     .button__content {
-      padding: 15px 31px;
-      font-size: 18px;
-      line-height: calc(24 / 18);
-      letter-spacing: 0.02em;
-    }
-    &._iconOnly {
-      .button__content {
-        padding-left: 16px;
-        padding-right: 16px;
-      }
+      @apply px-5 py-4 text-xl font-bold;
     }
   }
 
-  &.medium {
+  &._medium {
     .button__content {
-      padding: 11px 23px;
-      font-size: 16px;
-      line-height: calc(24 / 16);
-      letter-spacing: 0.02em;
+      @apply px-4 py-3 text-lg font-bold;
     }
   }
 
-  &.small {
-    border-radius: 6px;
+  &._small {
     .button__content {
-      padding: 7px 15px;
-      font-size: 14px;
-      line-height: calc(20 / 14);
-      letter-spacing: 0.02em;
+      @apply px-3 py-2 text-sm;
     }
-    &._iconOnly {
-      .button__content {
-        padding: 9px;
-      }
+  }
+
+  &._link {
+    @apply hover:text-blue-800;
+    .button__content {
+      @apply py-1;
     }
   }
 
   &[block] {
-    display: block;
-    width: 100%;
+    @apply block w-full;
   }
 
   &._loading {
     .button {
       &__content {
-        opacity: 0;
+        @apply opacity-0;
       }
       &__loader {
-        opacity: 1;
+        @apply opacity-100;
       }
     }
   }

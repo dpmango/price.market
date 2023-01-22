@@ -39,7 +39,13 @@ export const usePostStore = defineStore('post', () => {
     }
   }
 
-  return { categories, categoriesList, getCategories, order, updateOrder }
+  const resetOrder = () => {
+    order.value = {
+      categoryId: null,
+    }
+  }
+
+  return { categories, categoriesList, getCategories, order, updateOrder, resetOrder }
 })
 
 if (import.meta.hot) {

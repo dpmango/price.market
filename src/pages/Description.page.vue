@@ -1,5 +1,5 @@
 <template>
-  <PageWithTitle title="Создайте обьявление">
+  <PageWithTitle title="Заполните описание">
     <Suspense>
       <template #default>
         <PostDescription />
