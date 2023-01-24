@@ -7,7 +7,6 @@
 </template>
 
 <script setup lang="ts">
-// const api = useApi
 import { LayoutHeader } from '@c/Layout'
 </script>
 

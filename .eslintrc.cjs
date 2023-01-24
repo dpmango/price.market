@@ -8,6 +8,7 @@ module.exports = {
     'eslint:recommended',
     '@vue/eslint-config-typescript',
     '@vue/eslint-config-prettier',
+    './.eslintrc-auto-import.json',
   ],
   parserOptions: {
     ecmaVersion: 'latest',
@@ -16,6 +17,7 @@ module.exports = {
     quotes: ['error', 'single'],
     'prettier/prettier': 'error',
     'vue/multi-word-component-names': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
   },
 }

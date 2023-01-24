@@ -1,5 +1,5 @@
 <template>
-  <div :class="[!isNavCategory && 'ml-4']" :data-id="category.id">
+  <div :class="['category', !isNavCategory && 'ml-4']" :data-id="category.id">
     <div class="group mt-3 flex cursor-pointer items-center" @click="handleCategoryClick">
       <div
         :class="[
@@ -29,12 +29,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-import type { ICategoryChilds } from '@/core/interface/Category'
-import { SvgIcon } from '@c/Ui'
 import { PostCategory } from '@c/Post'
-import { usePostStore } from '@/core'
+
+import type { ICategoryChilds } from '@/core/interface/Category'
 
 const props = defineProps<{ category: ICategoryChilds; activeCategoryId?: number | null }>()
 const emit = defineEmits(['onToggle'])
@@ -57,7 +54,7 @@ const handleCategoryClick = () => {
     emit('onToggle', id)
   } else {
     postStore.updateOrder({ categoryId: id })
-    router.push(`/${id}`)
+    router.push(`/create/${id}`)
   }
 }
 </script>

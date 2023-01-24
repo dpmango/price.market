@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <PageWithTitle title="Заполните описание">
     <Suspense>
       <template #default>
         <PostDescription />
@@ -8,16 +8,24 @@
         <UiLoader />
       </template>
     </Suspense>
-  </main>
+  </PageWithTitle>
 </template>
 
 <script setup lang="ts">
-import { useHead } from '@vueuse/head'
+import { PageWithTitle } from '@c/Layout'
 import { PostDescription } from '@c/Post'
-import { UiLoader } from '@c/Ui'
+
+const postStore = usePostStore()
+const route = useRoute()
 
 useHead({
   title: 'Pirce.market | Создание обьявления',
   meta: [],
 })
+
+if (route.params.id) {
+  postStore.updateOrder({
+    categoryId: +route.params.id,
+  })
+}
 </script>
