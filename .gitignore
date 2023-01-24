@@ -33,3 +33,6 @@ coverage
 
 #typscript
 .eslintrc-auto-import.json
+
+#server
+server/public

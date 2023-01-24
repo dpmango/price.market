@@ -1,8 +1,10 @@
+import type { ISelect } from './Ui'
+
 export interface IOrder {
   categoryId: number | null
   text: string
   price: {
-    currency: string
+    currency: ISelect
     value: number
   }
   location: {

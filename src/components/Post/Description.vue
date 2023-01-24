@@ -16,7 +16,7 @@
     </div>
 
     <div class="mt-4">
-      <UiUploader :files="attachments" @init="onPondInit" />
+      <UiUploader server="http://localhost:9000/upload" :files="attachments" @init="onPondInit" />
     </div>
 
     <!-- location-->
@@ -55,15 +55,35 @@
         Добавить цену
       </UiButton>
 
-      <UiInput
-        v-show="hasPrice"
-        label="Цена"
-        placeholder="1 000"
-        inputmode="numeric"
-        :value="price"
-        :error="errors.price"
-        @onChange="(v: string) => setFieldValue('price', v)"
-      />
+      <div class="flex items-end" v-show="hasPrice">
+        <div class="relative">
+          <UiInput
+            inputClass="combobox"
+            label="Цена"
+            placeholder="1 000"
+            type="number"
+            inputmode="numeric"
+            :value="price"
+            :error="!!errors.price"
+            @onChange="(v: string) => setFieldValue('price', v)"
+          />
+          <div class="absolute right-0 top-7 z-[3]">
+            <UiSelect
+              :value="currency"
+              :error="errors.currency"
+              :options="currencyOptions"
+              @onSelect="handleSelectChange"
+            />
+          </div>
+        </div>
+
+        <span
+          @click="handlePriceReset"
+          class="mb-3 ml-2 flex-shrink-0 cursor-pointer text-xl leading-[0] text-gray-200 transition hover:text-gray-500"
+        >
+          <SvgIcon name="minus-circle" />
+        </span>
+      </div>
     </div>
 
     <!-- nav-->
@@ -98,7 +118,7 @@
 <script setup lang="ts">
 import { PostLocation } from '@c/Post'
 import { AtomBlockNav } from '@c/Ui'
-import type { IFile } from '@/core/interface/File'
+import type { IFile, ISelect } from '@/core/interface/Ui'
 
 const postStore = usePostStore()
 const ui = useUiStore()
@@ -117,13 +137,13 @@ const { errors, setErrors, setFieldValue, validate } = useForm({
   initialValues: {
     text: order.value.text || '',
     price: order.value.price.value || '',
-    currenct: order.value.price.currency || '',
+    currency: order.value.price.currency || null,
   },
 })
 
 const { value: text, meta: textMeta } = useField('text', (v: any) => {
   const value = clearString(v)
-  if (!value.length) return 'Текст обязателен для заполнения'
+  if (!value.length) return 'Описние обязательно для заполнения'
   if (value.length < 10) return 'Минимум 10 знаков'
   return true
 })
@@ -132,7 +152,7 @@ const { value: text, meta: textMeta } = useField('text', (v: any) => {
 const attachments = ref<IFile[]>([])
 
 const onPondInit = () => {
-  console.log('FilePond has initialized')
+  // console.log('FilePond has initialized')
 }
 
 // price
@@ -140,13 +160,46 @@ const hasPrice = ref(false)
 
 const { value: price, meta: priceMeta } = useField('price', (v: any) => {
   if (!hasPrice.value) return true
-  return clearString(v) ? true : 'Текст обязателен для заполнения'
+  if (!isValidNumber(v)) return 'Укажите только цифры'
+  return clearString(v) ? true : 'Укажите цену'
 })
 
-const { value: currency, meta: currencyMeta } = useField('currency', (v: any) => {
-  if (!hasPrice.value) return true
-  return clearString(v) ? true : 'Текст обязателен для заполнения'
+const { value: currency, meta: currencyMeta } = useField(
+  'currency',
+  (v: any) => {
+    if (!hasPrice.value) return true
+    return clearString(v.value) ? true : 'Выберите валюту'
+  },
+  {
+    type: 'file',
+  }
+)
+
+const currencyOptions = computed(() => {
+  return [
+    {
+      label: 'Рублей',
+      value: 'RUB',
+    },
+    {
+      label: 'Долларов',
+      value: 'USD',
+    },
+    {
+      label: 'Евро',
+      value: 'EUR',
+    },
+  ]
 })
+
+const handleSelectChange = (v: ISelect) => {
+  setFieldValue('currency', v)
+}
+
+const handlePriceReset = () => {
+  // postStore.resetPrice()
+  hasPrice.value = false
+}
 
 // navigation
 const nextDisabled = computed(() => {
@@ -162,16 +215,19 @@ const next = async () => {
   const { valid, errors } = await validate()
   if (!valid) return
 
-  const data = await requestNext({
+  const orderUpdate = {
     content: text.value,
     attachments: attachments.value.filter((x) => x.serverId).map((x) => x.serverId),
     location: order.value.location,
     price: {
-      currency: currency.value,
-      value: price.value,
+      currency: currency.value.value,
+      value: price.value.toString(),
     },
-  })
+  }
 
+  const data = await requestNext(orderUpdate)
+
+  postStore.updateOrder(orderUpdate)
   router.push(`/create/${route.params.id}/${data.id}`)
 }
 </script>

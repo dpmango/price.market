@@ -8,7 +8,7 @@
     <!-- center -->
     <div class="relative flex flex-col">
       <component
-        :class="['input__input']"
+        :class="['input__input', inputClass]"
         :is="getElement"
         :id="id"
         :name="name"
@@ -80,6 +80,7 @@ const props = defineProps<{
   theme?: 'primary' | 'secondary'
   icon?: string
   iconPosition?: 'left' | 'right'
+  inputClass?: string
   // modifiers
   error?: string | boolean
   valid?: boolean
@@ -296,6 +297,9 @@ onBeforeUnmount(() => {
     @apply hover:border-gray-800;
     @apply focus:border-gray-800;
     @apply disabled:pointer-events-none disabled:opacity-75;
+    &.combobox {
+      padding-right: 110px !important;
+    }
   }
 
   &__icon {

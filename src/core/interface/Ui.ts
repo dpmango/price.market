@@ -11,3 +11,8 @@ export interface IFile {
   filename: string
   filenameWithoutExtension: string
 }
+
+export interface ISelect {
+  label: string
+  value: string
+}

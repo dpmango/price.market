@@ -6,7 +6,10 @@ const initialState = {
   categoryId: null,
   text: '',
   price: {
-    currency: 'RUR',
+    currency: {
+      label: 'Рублей',
+      value: 'RUB',
+    },
     value: 0,
   },
   location: {
@@ -57,9 +60,14 @@ export const usePostStore = defineStore('post', () => {
   }
 
   const resetLocation = () => {
-    console.log('ask to reset')
     order.value.location = {
       ...initialState.location,
+    }
+  }
+
+  const resetPrice = () => {
+    order.value.price = {
+      ...initialState.price,
     }
   }
 
@@ -76,6 +84,7 @@ export const usePostStore = defineStore('post', () => {
     order,
     updateOrder,
     resetLocation,
+    resetPrice,
     resetOrder,
   }
 })

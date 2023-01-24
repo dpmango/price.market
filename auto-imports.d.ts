@@ -17,6 +17,7 @@ declare global {
   const UiInput: typeof import('./src/components/Ui/index')['UiInput']
   const UiLoader: typeof import('./src/components/Ui/index')['UiLoader']
   const UiModal: typeof import('./src/components/Ui/index')['UiModal']
+  const UiSelect: typeof import('./src/components/Ui/index')['UiSelect']
   const UiUploader: typeof import('./src/components/Ui/index')['UiUploader']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const cleanPhone: typeof import('./src/core/utils/Validation')['cleanPhone']
