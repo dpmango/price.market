@@ -16,7 +16,7 @@
     </div>
 
     <div class="mt-4">
-      <div class="h-[60px] rounded-lg border border-dashed border-gray-200 bg-gray-50"></div>
+      <UiUploader :files="attachments" @init="onPondInit" />
     </div>
 
     <!-- location-->
@@ -97,7 +97,8 @@
 
 <script setup lang="ts">
 import { PostLocation } from '@c/Post'
-import { AtomBlockNav } from '../Ui'
+import { AtomBlockNav } from '@c/Ui'
+import type { IFile } from '@/core/interface/File'
 
 const postStore = usePostStore()
 const ui = useUiStore()
@@ -126,6 +127,13 @@ const { value: text, meta: textMeta } = useField('text', (v: any) => {
   if (value.length < 10) return 'Минимум 10 знаков'
   return true
 })
+
+// filepond (uploader)
+const attachments = ref<IFile[]>([])
+
+const onPondInit = () => {
+  console.log('FilePond has initialized')
+}
 
 // price
 const hasPrice = ref(false)
@@ -156,7 +164,7 @@ const next = async () => {
 
   const data = await requestNext({
     content: text.value,
-    attachments: ['attachment_id'],
+    attachments: attachments.value.filter((x) => x.serverId).map((x) => x.serverId),
     location: order.value.location,
     price: {
       currency: currency.value,

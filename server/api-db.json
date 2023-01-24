@@ -63,45 +63,17 @@
   ],
   "post": [
     {
-      "content": "fwefwe wef wef ",
-      "attachments": [
-        "attachment_id"
-      ],
+      "content": "wrerwer wer wer",
+      "attachments": [],
       "location": {
-        "country": "Россия",
-        "city": "",
-        "address": ""
-      },
-      "price": {},
-      "id": 1
-    },
-    {
-      "content": "fwefwe wef wef ddwq",
-      "attachments": [
-        "attachment_id"
-      ],
-      "location": {
-        "country": "Россия",
-        "city": "",
-        "address": ""
-      },
-      "price": {},
-      "id": 2
-    },
-    {
-      "content": "fefwefweffwewe",
-      "attachments": [
-        "attachment_id"
-      ],
-      "location": {
-        "country": "Россия",
+        "country": "",
         "city": "",
         "address": ""
       },
       "price": {
         "value": ""
       },
-      "id": 3
+      "id": 1
     }
   ]
 }
