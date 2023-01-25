@@ -1,5 +1,4 @@
 <template>
-  {{ uploades }}
   <div class="relative overflow-hidden" :class="[files.length && 'has-files']">
     <file-pond
       class="-mb-4"
