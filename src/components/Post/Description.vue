@@ -16,7 +16,7 @@
     </div>
 
     <div class="mt-4">
-      <UiUploader server="http://localhost:9000/upload" :files="attachments" @init="onPondInit" />
+      <UiUploader :files="attachments" @init="onPondInit" />
     </div>
 
     <!-- location-->

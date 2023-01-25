@@ -2,8 +2,8 @@
   <div class="relative overflow-hidden">
     <file-pond
       class="-mb-4"
-      server="/api"
-      name="attachments"
+      :server="serverProcessor"
+      name="filepond"
       ref="pond"
       label-idle="<strong>Загрузите фото и видео</strong>PNG, JPG, GIF, MP4. Размер до 20 Мб"
       accepted-file-types="image/jpeg, image/png, image/gif, video/mp4"
@@ -65,6 +65,37 @@ const FilePond = vueFilePond(
   FilePondPluginFileValidateSize,
   FilePondPluginImagePreview
 )
+
+const serverProcessor = computed(() => ({
+  // @ts-ignore
+  process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
+    const formData = new FormData()
+    formData.append(fieldName, file, file.name)
+
+    const request = new XMLHttpRequest()
+    request.open('POST', `${import.meta.env.VITE_UPLOADER_URL}`)
+
+    request.upload.onprogress = (e) => {
+      progress(e.lengthComputable, e.loaded, e.total)
+    }
+    request.onload = function () {
+      if (request.status >= 200 && request.status < 300) {
+        load(request.responseText)
+      } else {
+        error('oh no')
+      }
+    }
+
+    request.send(formData)
+
+    return {
+      abort: () => {
+        request.abort()
+        abort()
+      },
+    }
+  },
+}))
 </script>
 
 <style lang="scss">
@@ -137,6 +168,9 @@ const FilePond = vueFilePond(
   &--action-remove-item {
     @apply z-20;
   }
+  &--action-retry-item-processing {
+    display: none;
+  }
 
   &--item-panel {
     @apply left-7 rounded-lg bg-gray-50;
@@ -182,14 +216,23 @@ const FilePond = vueFilePond(
   .filepond--item-panel {
     @apply bg-red-500;
   }
+
   .filepond--file-info {
     @apply mr-3;
+  }
+  .filepond--file-info-main {
+    @apply text-red-500;
   }
 }
 
 [data-filepond-item-state='processing-complete'] {
-  .filepond--item-panel {
-    @apply bg-green-500;
+  .filepond {
+    &--file-status {
+      @apply hidden;
+    }
+    &--item-panel {
+      @apply bg-green-500;
+    }
   }
 }
 
@@ -204,16 +247,10 @@ const FilePond = vueFilePond(
 .filepond--drop-label {
   > label[for] {
     &::before {
-      display: inline-block;
+      @apply absolute left-3 top-1/2 inline-block -translate-y-1/2;
+      @apply h-8 w-8 rounded-full;
       content: '';
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 32px;
-      height: 32px;
       box-shadow: 0px 1px 3px rgba(92, 86, 118, 0.15);
-      border-radius: 23px;
       background: #ffffff url('@/assets/icons/camera.svg') no-repeat center;
       background-size: 20px 20px;
     }
@@ -223,14 +260,9 @@ const FilePond = vueFilePond(
 .filepond--file-wrapper.filepond--file-wrapper {
   padding-left: 28px;
   &::before {
+    @apply absolute left-0 top-1/2 inline-block h-5 w-5 -translate-y-1/2;
     display: inline-block;
     content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
     background: url('@/assets/icons/drag-handle.svg') no-repeat center;
     background-size: cover;
   }
