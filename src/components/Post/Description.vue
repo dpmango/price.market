@@ -16,7 +16,11 @@
     </div>
 
     <div class="mt-4">
-      <UiUploader server="http://localhost:9000/upload" :files="attachments" @init="onPondInit" />
+      <UiUploader
+        :initialFiles="attachments"
+        @onUploads="(v: string[]) => (uploades = v)"
+        @onChange="(v: IFile[]) => (attachments = v)"
+      />
     </div>
 
     <!-- location-->
@@ -119,6 +123,7 @@
 import { PostLocation } from '@c/Post'
 import { AtomBlockNav } from '@c/Ui'
 import type { IFile, ISelect } from '@/core/interface/Ui'
+import type { IOrder } from '@/core/interface/Order'
 
 const postStore = usePostStore()
 const ui = useUiStore()
@@ -150,10 +155,7 @@ const { value: text, meta: textMeta } = useField('text', (v: any) => {
 
 // filepond (uploader)
 const attachments = ref<IFile[]>([])
-
-const onPondInit = () => {
-  // console.log('FilePond has initialized')
-}
+const uploades = ref<string[]>([])
 
 // price
 const hasPrice = ref(false)
@@ -166,7 +168,7 @@ const { value: price, meta: priceMeta } = useField('price', (v: any) => {
 
 const { value: currency, meta: currencyMeta } = useField(
   'currency',
-  (v: any) => {
+  (v: ISelect) => {
     if (!hasPrice.value) return true
     return clearString(v.value) ? true : 'Выберите валюту'
   },
@@ -217,17 +219,23 @@ const next = async () => {
 
   const orderUpdate = {
     content: text.value,
-    attachments: attachments.value.filter((x) => x.serverId).map((x) => x.serverId),
+    attachments: uploades.value || [],
     location: order.value.location,
     price: {
-      currency: currency.value.value,
-      value: price.value.toString(),
+      currency: currency.value.value as string,
+      value: price.value || '',
     },
   }
 
   const data = await requestNext(orderUpdate)
 
-  postStore.updateOrder(orderUpdate)
+  postStore.updateOrder({
+    ...orderUpdate,
+    price: {
+      ...orderUpdate.price,
+      currency: currency.value,
+    },
+  })
   router.push(`/create/${route.params.id}/${data.id}`)
 }
 </script>
