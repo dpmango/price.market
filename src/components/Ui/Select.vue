@@ -8,9 +8,12 @@
     <vue-select
       :id="id"
       :options="options"
-      :value="value"
+      v-model="valueModel"
+      :error="error"
       :placeholder="placeholder"
       :searchable="searchable"
+      item-title="label"
+      item-value="value"
       @option:selected="setSelected"
       @open="opened = true"
       @close="opened = false"
@@ -41,8 +44,11 @@ const emit = defineEmits(['onSelect'])
 
 const props = defineProps({
   value: {
-    type: [String, Array, Object],
+    type: [Object],
     required: false,
+    default() {
+      return null
+    },
   },
   options: {
     type: Array,
@@ -74,6 +80,8 @@ const props = defineProps({
   },
 })
 
+// state
+const valueModel = ref(props.value)
 const opened = ref(false)
 
 const getLabel = computed(() => {
@@ -83,6 +91,13 @@ const getLabel = computed(() => {
 const setSelected = (v: ISelect) => {
   emit('onSelect', v)
 }
+
+watch(
+  () => valueModel.value,
+  (newVal) => {
+    emit('onSelect', newVal)
+  }
+)
 </script>
 
 <style lang="scss" scoped>

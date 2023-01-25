@@ -1,5 +1,6 @@
 <template>
-  <div class="relative overflow-hidden">
+  {{ uploades }}
+  <div class="relative overflow-hidden" :class="[files.length && 'has-files']">
     <file-pond
       class="-mb-4"
       :server="serverProcessor"
@@ -43,6 +44,9 @@
           d='M10.125 2C5.64492 2 2 5.64492 2 10.125C2 14.6051 5.64492 18.25 10.125 18.25C14.6051 18.25 18.25 14.6051 18.25 10.125C18.25 5.64492 14.6051 2 10.125 2ZM13.0668 12.1832C13.1273 12.2407 13.1756 12.3096 13.209 12.3861C13.2424 12.4625 13.2602 12.5449 13.2613 12.6283C13.2623 12.7117 13.2467 12.7945 13.2153 12.8718C13.1838 12.9491 13.1372 13.0193 13.0783 13.0783C13.0193 13.1372 12.9491 13.1838 12.8718 13.2153C12.7945 13.2467 12.7117 13.2623 12.6283 13.2613C12.5449 13.2602 12.4625 13.2424 12.3861 13.209C12.3096 13.1756 12.2407 13.1273 12.1832 13.0668L10.125 11.009L8.0668 13.0668C7.94863 13.1791 7.79129 13.2407 7.62831 13.2386C7.46534 13.2365 7.30962 13.1709 7.19437 13.0556C7.07912 12.9404 7.01345 12.7847 7.01137 12.6217C7.00928 12.4587 7.07094 12.3014 7.1832 12.1832L9.24102 10.125L7.1832 8.0668C7.07094 7.94863 7.00928 7.79129 7.01137 7.62831C7.01345 7.46534 7.07912 7.30962 7.19437 7.19437C7.30962 7.07912 7.46534 7.01345 7.62831 7.01137C7.79129 7.00928 7.94863 7.07094 8.0668 7.1832L10.125 9.24102L12.1832 7.1832C12.3014 7.07094 12.4587 7.00928 12.6217 7.01137C12.7847 7.01345 12.9404 7.07912 13.0556 7.19437C13.1709 7.30962 13.2365 7.46534 13.2386 7.62831C13.2407 7.79129 13.1791 7.94863 13.0668 8.0668L11.009 10.125L13.0668 12.1832Z'
         />
         </svg>"
+      @processfile="handleAdd"
+      @removefile="handleRemove"
+      @reorderfiles="handleReorder"
       v-bind="$attrs"
     />
   </div>
@@ -55,15 +59,70 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size'
+import type { IFile } from '@/core/interface/Ui'
 
 const props = defineProps<{
-  files: any[]
+  initialFiles: IFile[]
 }>()
+const emit = defineEmits(['onChange', 'onUploads'])
+
+const files = ref(props.initialFiles || [])
+const uploades = ref<string[]>([])
 
 const FilePond = vueFilePond(
   FilePondPluginFileValidateType,
   FilePondPluginFileValidateSize,
   FilePondPluginImagePreview
+)
+
+watch(
+  () => files.value,
+  (newVal) => {
+    emit('onChange', newVal)
+  },
+  { deep: true }
+)
+
+const getFileServerName = (file: IFile) => {
+  try {
+    return JSON.parse(file.serverId).files[0].name
+  } catch {
+    return null
+  }
+}
+
+const handleAdd = (err: Error, file: any) => {
+  if (!err) {
+    const uploadName = getFileServerName(file)
+    uploades.value = [...uploades.value, uploadName]
+  }
+}
+
+const handleRemove = (err: Error, file: any) => {
+  if (!err) {
+    const uploadName = getFileServerName(file)
+    uploades.value = uploades.value.filter((x) => x !== uploadName)
+  }
+}
+
+const handleReorder = (files: any[]) => {
+  const newOrder = [] as string[]
+
+  files.forEach((file) => {
+    const uploadName = getFileServerName(file)
+    newOrder.push(uploadName)
+  })
+
+  uploades.value = [...newOrder]
+}
+
+watch(
+  () => uploades.value,
+  (newVal) => {
+    console.log('uploades changed', newVal)
+    emit('onUploads', newVal)
+  },
+  { deep: true }
 )
 
 const serverProcessor = computed(() => ({
