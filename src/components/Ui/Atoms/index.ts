@@ -1,2 +1,2 @@
-export { default as AtomBlockNav } from './BlockNav.vue'
-export { default as AtomLocation } from './Location.vue'
+export { default as AtomBlockNav } from './BlockNav.svelte'
+export { default as AtomLocation } from './Location.svelte'

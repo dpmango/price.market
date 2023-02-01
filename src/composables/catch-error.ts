@@ -1,4 +1,4 @@
-import { useToast } from 'vue-toast-notification'
+import { toast } from '@zerodevx/svelte-toast'
 
 export interface IUseCatchError {
   error: Error
@@ -8,10 +8,9 @@ export interface IUseCatchError {
 
 export const useCatchError = ({ error, text, silent }: IUseCatchError) => {
   // const { message, code } = error
-  const toast = useToast()
 
   if (!silent) {
-    toast.error(text || error?.message || 'Ошибка, проверьте соединение с интернетом')
+    toast.push(text || error?.message || 'Ошибка, проверьте соединение с интернетом')
   }
 
   // eslint-disable-next-line no-console

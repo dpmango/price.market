@@ -1,8 +1,9 @@
 export function useState(initialState: any) {
-  const state = ref<any>(initialState)
+  let state = initialState as any
+
   const setState = (newState: any) => {
-    state.value = newState
+    state = newState
   }
 
-  return [readonly(state), setState]
+  return [state, setState]
 }

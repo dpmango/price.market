@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'Euclid Square';
-  src: url('@/assets/fonts/EuclidSquare-Regular.eot');
+  src: url('$lib/fonts/EuclidSquare-Regular.eot');
   src: local('Euclid Square Regular'), local('EuclidSquare-Regular'),
-    url('@/assets/fonts/EuclidSquare-Regular.eot?#iefix') format('embedded-opentype'),
-    url('@/assets/fonts/EuclidSquare-Regular.woff2') format('woff2'),
-    url('@/assets/fonts/EuclidSquare-Regular.woff') format('woff'),
-    url('@/assets/fonts/EuclidSquare-Regular.ttf') format('truetype');
+    url('$lib/fonts/EuclidSquare-Regular.eot?#iefix') format('embedded-opentype'),
+    url('$lib/fonts/EuclidSquare-Regular.woff2') format('woff2'),
+    url('$lib/fonts/EuclidSquare-Regular.woff') format('woff'),
+    url('$lib/fonts/EuclidSquare-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -13,12 +13,12 @@
 
 @font-face {
   font-family: 'Euclid Square';
-  src: url('@/assets/fonts/EuclidSquare-Light.eot');
+  src: url('$lib/fonts/EuclidSquare-Light.eot');
   src: local('Euclid Square Light'), local('EuclidSquare-Light'),
-    url('@/assets/fonts/EuclidSquare-Light.eot?#iefix') format('embedded-opentype'),
-    url('@/assets/fonts/EuclidSquare-Light.woff2') format('woff2'),
-    url('@/assets/fonts/EuclidSquare-Light.woff') format('woff'),
-    url('@/assets/fonts/EuclidSquare-Light.ttf') format('truetype');
+    url('$lib/fonts/EuclidSquare-Light.eot?#iefix') format('embedded-opentype'),
+    url('$lib/fonts/EuclidSquare-Light.woff2') format('woff2'),
+    url('$lib/fonts/EuclidSquare-Light.woff') format('woff'),
+    url('$lib/fonts/EuclidSquare-Light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -26,12 +26,12 @@
 
 @font-face {
   font-family: 'Euclid Square';
-  src: url('@/assets/fonts/EuclidSquare-Medium.eot');
+  src: url('$lib/fonts/EuclidSquare-Medium.eot');
   src: local('Euclid Square Medium'), local('EuclidSquare-Medium'),
-    url('@/assets/fonts/EuclidSquare-Medium.eot?#iefix') format('embedded-opentype'),
-    url('@/assets/fonts/EuclidSquare-Medium.woff2') format('woff2'),
-    url('@/assets/fonts/EuclidSquare-Medium.woff') format('woff'),
-    url('@/assets/fonts/EuclidSquare-Medium.ttf') format('truetype');
+    url('$lib/fonts/EuclidSquare-Medium.eot?#iefix') format('embedded-opentype'),
+    url('$lib/fonts/EuclidSquare-Medium.woff2') format('woff2'),
+    url('$lib/fonts/EuclidSquare-Medium.woff') format('woff'),
+    url('$lib/fonts/EuclidSquare-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -39,12 +39,12 @@
 
 @font-face {
   font-family: 'Euclid Square';
-  src: url('@/assets/fonts/EuclidSquare-SemiBold.eot');
+  src: url('$lib/fonts/EuclidSquare-SemiBold.eot');
   src: local('Euclid Square SemiBold'), local('EuclidSquare-SemiBold'),
-    url('@/assets/fonts/EuclidSquare-SemiBold.eot?#iefix') format('embedded-opentype'),
-    url('@/assets/fonts/EuclidSquare-SemiBold.woff2') format('woff2'),
-    url('@/assets/fonts/EuclidSquare-SemiBold.woff') format('woff'),
-    url('@/assets/fonts/EuclidSquare-SemiBold.ttf') format('truetype');
+    url('$lib/fonts/EuclidSquare-SemiBold.eot?#iefix') format('embedded-opentype'),
+    url('$lib/fonts/EuclidSquare-SemiBold.woff2') format('woff2'),
+    url('$lib/fonts/EuclidSquare-SemiBold.woff') format('woff'),
+    url('$lib/fonts/EuclidSquare-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -52,12 +52,12 @@
 
 @font-face {
   font-family: 'Euclid Square';
-  src: url('@/assets/fonts/EuclidSquare-Bold.eot');
+  src: url('$lib/fonts/EuclidSquare-Bold.eot');
   src: local('Euclid Square Bold'), local('EuclidSquare-Bold'),
-    url('@/assets/fonts/EuclidSquare-Bold.eot?#iefix') format('embedded-opentype'),
-    url('@/assets/fonts/EuclidSquare-Bold.woff2') format('woff2'),
-    url('@/assets/fonts/EuclidSquare-Bold.woff') format('woff'),
-    url('@/assets/fonts/EuclidSquare-Bold.ttf') format('truetype');
+    url('$lib/fonts/EuclidSquare-Bold.eot?#iefix') format('embedded-opentype'),
+    url('$lib/fonts/EuclidSquare-Bold.woff2') format('woff2'),
+    url('$lib/fonts/EuclidSquare-Bold.woff') format('woff'),
+    url('$lib/fonts/EuclidSquare-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -65,60 +65,60 @@
 
 // @font-face {
 //   font-family: 'Euclid Square';
-//   src: url('@/assets/fonts/EuclidSquare-Italic.eot');
+//   src: url('$lib/fonts/EuclidSquare-Italic.eot');
 //   src: local('Euclid Square Italic'), local('EuclidSquare-Italic'),
-//     url('@/assets/fonts/EuclidSquare-Italic.eot?#iefix') format('embedded-opentype'),
-//     url('@/assets/fonts/EuclidSquare-Italic.woff2') format('woff2'),
-//     url('@/assets/fonts/EuclidSquare-Italic.woff') format('woff'),
-//     url('@/assets/fonts/EuclidSquare-Italic.ttf') format('truetype');
+//     url('$lib/fonts/EuclidSquare-Italic.eot?#iefix') format('embedded-opentype'),
+//     url('$lib/fonts/EuclidSquare-Italic.woff2') format('woff2'),
+//     url('$lib/fonts/EuclidSquare-Italic.woff') format('woff'),
+//     url('$lib/fonts/EuclidSquare-Italic.ttf') format('truetype');
 //   font-weight: normal;
 //   font-style: italic;
 // }
 
 // @font-face {
 //   font-family: 'Euclid Square';
-//   src: url('@/assets/fonts/EuclidSquare-SemiBoldItalic.eot');
+//   src: url('$lib/fonts/EuclidSquare-SemiBoldItalic.eot');
 //   src: local('Euclid Square SemiBold Italic'), local('EuclidSquare-SemiBoldItalic'),
-//     url('@/assets/fonts/EuclidSquare-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
-//     url('@/assets/fonts/EuclidSquare-SemiBoldItalic.woff2') format('woff2'),
-//     url('@/assets/fonts/EuclidSquare-SemiBoldItalic.woff') format('woff'),
-//     url('@/assets/fonts/EuclidSquare-SemiBoldItalic.ttf') format('truetype');
+//     url('$lib/fonts/EuclidSquare-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+//     url('$lib/fonts/EuclidSquare-SemiBoldItalic.woff2') format('woff2'),
+//     url('$lib/fonts/EuclidSquare-SemiBoldItalic.woff') format('woff'),
+//     url('$lib/fonts/EuclidSquare-SemiBoldItalic.ttf') format('truetype');
 //   font-weight: 600;
 //   font-style: italic;
 // }
 
 // @font-face {
 //   font-family: 'Euclid Square';
-//   src: url('@/assets/fonts/EuclidSquare-BoldItalic.eot');
+//   src: url('$lib/fonts/EuclidSquare-BoldItalic.eot');
 //   src: local('Euclid Square Bold Italic'), local('EuclidSquare-BoldItalic'),
-//     url('@/assets/fonts/EuclidSquare-BoldItalic.eot?#iefix') format('embedded-opentype'),
-//     url('@/assets/fonts/EuclidSquare-BoldItalic.woff2') format('woff2'),
-//     url('@/assets/fonts/EuclidSquare-BoldItalic.woff') format('woff'),
-//     url('@/assets/fonts/EuclidSquare-BoldItalic.ttf') format('truetype');
+//     url('$lib/fonts/EuclidSquare-BoldItalic.eot?#iefix') format('embedded-opentype'),
+//     url('$lib/fonts/EuclidSquare-BoldItalic.woff2') format('woff2'),
+//     url('$lib/fonts/EuclidSquare-BoldItalic.woff') format('woff'),
+//     url('$lib/fonts/EuclidSquare-BoldItalic.ttf') format('truetype');
 //   font-weight: bold;
 //   font-style: italic;
 // }
 
 // @font-face {
 //   font-family: 'Euclid Square';
-//   src: url('@/assets/fonts/EuclidSquare-LightItalic.eot');
+//   src: url('$lib/fonts/EuclidSquare-LightItalic.eot');
 //   src: local('Euclid Square Light Italic'), local('EuclidSquare-LightItalic'),
-//     url('@/assets/fonts/EuclidSquare-LightItalic.eot?#iefix') format('embedded-opentype'),
-//     url('@/assets/fonts/EuclidSquare-LightItalic.woff2') format('woff2'),
-//     url('@/assets/fonts/EuclidSquare-LightItalic.woff') format('woff'),
-//     url('@/assets/fonts/EuclidSquare-LightItalic.ttf') format('truetype');
+//     url('$lib/fonts/EuclidSquare-LightItalic.eot?#iefix') format('embedded-opentype'),
+//     url('$lib/fonts/EuclidSquare-LightItalic.woff2') format('woff2'),
+//     url('$lib/fonts/EuclidSquare-LightItalic.woff') format('woff'),
+//     url('$lib/fonts/EuclidSquare-LightItalic.ttf') format('truetype');
 //   font-weight: 300;
 //   font-style: italic;
 // }
 
 // @font-face {
 //   font-family: 'Euclid Square';
-//   src: url('@/assets/fonts/EuclidSquare-MediumItalic.eot');
+//   src: url('$lib/fonts/EuclidSquare-MediumItalic.eot');
 //   src: local('Euclid Square Medium Italic'), local('EuclidSquare-MediumItalic'),
-//     url('@/assets/fonts/EuclidSquare-MediumItalic.eot?#iefix') format('embedded-opentype'),
-//     url('@/assets/fonts/EuclidSquare-MediumItalic.woff2') format('woff2'),
-//     url('@/assets/fonts/EuclidSquare-MediumItalic.woff') format('woff'),
-//     url('@/assets/fonts/EuclidSquare-MediumItalic.ttf') format('truetype');
+//     url('$lib/fonts/EuclidSquare-MediumItalic.eot?#iefix') format('embedded-opentype'),
+//     url('$lib/fonts/EuclidSquare-MediumItalic.woff2') format('woff2'),
+//     url('$lib/fonts/EuclidSquare-MediumItalic.woff') format('woff'),
+//     url('$lib/fonts/EuclidSquare-MediumItalic.ttf') format('truetype');
 //   font-weight: 500;
 //   font-style: italic;
 // }

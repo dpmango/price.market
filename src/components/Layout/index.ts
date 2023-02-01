@@ -1,3 +1,2 @@
-export { default as LayoutDefault } from './Layout.vue'
-export { default as LayoutHeader } from './Header.vue'
-export { default as PageWithTitle } from './PageWithTitle.vue'
+export { default as Header } from './Header.svelte'
+export { default as PageWithTitle } from './PageWithTitle.svelte'

@@ -1,9 +1,4 @@
-export const scrollToElement = (
-  id: string,
-  mindHeader = true,
-  page: boolean = false,
-  speed = 500
-) => {
+export const scrollToElement = (id: string, mindHeader = true, page = false, speed = 500) => {
   if (!page) {
     const element = document.getElementById(id)
     if (!element) return
@@ -23,7 +18,7 @@ export const scrollToElement = (
   }
 }
 
-export const scrollWithSpeed = (to: number, duration: number = 500, el?: HTMLElement) => {
+export const scrollWithSpeed = (to: number, duration = 500, el?: HTMLElement) => {
   const element = el || document.documentElement
   const start = element.scrollTop
   const change = to - start
