@@ -1,22 +1,22 @@
-import { useToast } from 'vue-toast-notification'
+import { toast } from '@zerodevx/svelte-toast'
+import { useCatchError } from '@/composables'
+import { useApi } from '@/core/api'
+
 export interface IUseForm {
   urlPrev: string
   urlNext: string
 }
 
 export const useFormNav = ({ urlPrev, urlNext }: IUseForm) => {
-  const api = useApi
-  const toast = useToast()
-
-  const loadingNext = ref(false)
-  const loadingBack = ref(false)
-  const requestError = ref(null)
+  let loadingNext = false
+  let loadingBack = false
+  let requestError = null
 
   const requestPrev = async (data: any) => {
     console.log('👽 request', data)
-    loadingBack.value = true
+    loadingBack = true
 
-    const res = await api(urlPrev, {
+    const res = await useApi(urlPrev, {
       method: 'POST',
       body: data,
     })
@@ -25,19 +25,19 @@ export const useFormNav = ({ urlPrev, urlNext }: IUseForm) => {
       })
       .catch((err) => {
         useCatchError(err)
-        requestError.value = err.message
+        requestError = err.message
       })
 
-    loadingBack.value = false
+    loadingBack = false
 
     return res
   }
 
   const requestNext = async (data: any) => {
     console.log('👽 request', data)
-    loadingNext.value = true
+    loadingNext = true
 
-    const res = await api(urlNext, {
+    const res = await useApi(urlNext, {
       method: 'POST',
       body: data,
     })
@@ -46,16 +46,16 @@ export const useFormNav = ({ urlPrev, urlNext }: IUseForm) => {
       })
       .catch((err) => {
         useCatchError(err)
-        requestError.value = err.message
+        requestError = err.message
       })
 
-    loadingNext.value = false
+    loadingNext = false
 
     return res
   }
 
-  if (requestError.value) {
-    toast.error('Ошибка, попробуйте еще раз или обратитесь к администратору')
+  if (requestError) {
+    toast.push('Ошибка, попробуйте еще раз или обратитесь к администратору')
   }
 
   return {

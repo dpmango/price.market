@@ -1,0 +1,145 @@
+<script lang="ts">
+  import cns from 'classnames'
+
+  import { SvgIcon } from '@c/Ui'
+
+  export let theme: 'primary' | 'secondary' | 'link' | null = 'primary'
+  export let size: 'large' | 'medium' | 'small' | null = 'medium'
+  export let to: string | null = null
+  export let iconRight: string | null = null
+  export let iconLeft: string | null = null
+  export let loading = false
+
+  const isEmpty = !$$slots.default
+
+  let showLoader = false
+  let timer = null as any
+
+  $: {
+    if (loading === true) {
+      timer = setTimeout(() => {
+        showLoader = true
+      }, 200)
+    } else if (loading === false) {
+      showLoader = false
+      clearTimeout(timer)
+    }
+  }
+</script>
+
+<svelte:element
+  this={to ? 'a' : 'button'}
+  class={cns('button', `_${theme}`, `_${size}`, isEmpty && '_iconOnly', showLoader && '_loading')}
+  href={to}
+  on:click
+  {...$$restProps}
+>
+  <span class="button__content">
+    {#if iconLeft}
+      <i class="button__icon _left">
+        <SvgIcon name={iconLeft} />
+      </i>
+    {/if}
+    <slot />
+    {#if iconRight}
+      <i class="button__icon _right">
+        <SvgIcon name={iconRight} />
+      </i>
+    {/if}
+  </span>
+
+  {#if showLoader}
+    <span class="button__loader">
+      <SvgIcon name="loader" />
+    </span>
+  {/if}
+</svelte:element>
+
+<style lang="scss">
+  .button {
+    @apply relative inline-block cursor-pointer appearance-none overflow-hidden rounded-lg border border-transparent p-0 text-center shadow-none transition;
+    &__content {
+      @apply relative z-[1] inline-flex items-center justify-center;
+    }
+
+    &__icon {
+      @apply flex-shrink-0 text-xl leading-[0];
+      &._left {
+        @apply mr-1;
+      }
+      &._right {
+        @apply ml-1;
+      }
+    }
+    &._iconOnly {
+      .button__icon {
+        @apply mx-0;
+      }
+    }
+
+    &__loader {
+      @apply pointer-events-none absolute top-0 left-0 right-0 bottom-0 z-[3] inline-flex items-center justify-center opacity-0 transition;
+      svg {
+        animation: rotateLoader 1s linear infinite;
+      }
+    }
+
+    // themes
+    &._primary {
+      @apply bg-yellow-600 text-gray-800;
+      @apply hover:bg-yellow-700;
+      @apply focus:bg-yellow-700 focus:shadow-[0px_0px_0px_2px_rgba(255,255,255,1),0px_0px_0px_3px_rgb(212,209,224,1)];
+      @apply active:bg-yellow-700 active:shadow-[0px_0px_0px_2px_rgb(245,127,23,1)];
+      @apply disabled:pointer-events-none disabled:bg-gray-100;
+    }
+
+    &._secondary {
+      @apply border-gray-200 bg-gray-50 text-gray-800;
+      @apply hover:border-gray-300 hover:bg-gray-100;
+      @apply focus:border-gray-300 focus:bg-gray-100;
+      @apply active:bg-gray-300;
+      @apply disabled:pointer-events-none disabled:bg-gray-100;
+    }
+
+    // sizes
+    &._large {
+      .button__content {
+        @apply px-5 py-4 text-xl font-bold;
+      }
+    }
+
+    &._medium {
+      .button__content {
+        @apply px-4 py-3 text-lg font-bold;
+      }
+    }
+
+    &._small {
+      .button__content {
+        @apply px-3 py-2 text-sm;
+      }
+    }
+
+    &._link {
+      @apply hover:text-blue-800;
+      .button__content {
+        @apply py-1;
+      }
+    }
+
+    &[block] {
+      @apply block w-full;
+    }
+
+    &._loading {
+      .button {
+        &__content {
+          @apply opacity-0;
+        }
+        &__loader {
+          @apply opacity-100;
+        }
+      }
+    }
+  }
+</style>

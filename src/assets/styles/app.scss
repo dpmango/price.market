@@ -3,9 +3,8 @@
 @tailwind utilities;
 
 @import 'vendor/hamburger';
-@import 'vue-toast-notification/dist/theme-sugar.css';
+@import 'filepond/dist/filepond.min.css';
+@import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 
 @import 'layout/general';
 @import 'layout/fonts';
-
-@import 'elements/transitions';

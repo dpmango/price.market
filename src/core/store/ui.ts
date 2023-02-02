@@ -1,49 +1,39 @@
-import { defineStore, acceptHMRUpdate } from 'pinia'
+import { writable, get, derived } from 'svelte/store'
 
-export const useUiStore = defineStore('ui', {
-  state: () => {
-    return {
-      mobileMenuActive: false,
-      mobileMenuOffest: 0,
-      modal: [] as string[],
-      modalParams: null as any | null,
-    }
-  },
-  actions: {
-    setMobileMenu(payload: { active: boolean; offset: number }) {
-      const { active, offset } = payload
-      this.mobileMenuActive = active
-      this.mobileMenuOffest = offset
-    },
-    setModal({
-      name,
-      params,
-      keepPrevious = false,
-    }: {
-      name: string
-      params?: any
-      keepPrevious?: boolean
-    }) {
-      if (keepPrevious) {
-        this.modal.push(name)
-      } else {
-        this.modal = [name]
-      }
-      if (params) {
-        this.modalParams = params
-      }
-    },
-    closeModal() {
-      this.modal = this.modal.slice(0, -1)
-      this.modalParams = null
-    },
-    closeAllModals() {
-      this.modal = []
-      this.modalParams = null
-    },
-  },
-})
+export const mobileMenuActive = writable(false)
+export const modal = writable([] as string[])
+export const modalParams = writable(null as any)
 
-if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useUiStore, import.meta.hot))
+export const setMobileMenu = (payload: { active: boolean }) => {
+  const { active } = payload
+  mobileMenuActive.set(active)
+}
+
+export const closeModal = () => {
+  modal.set(get(modal).slice(0, -1))
+  modalParams.set(null)
+}
+
+export const closeAllModals = () => {
+  modal.set([])
+  modalParams.set(null)
+}
+
+export const setModal = ({
+  name,
+  params,
+  keepPrevious = false,
+}: {
+  name: string
+  params?: any
+  keepPrevious?: boolean
+}) => {
+  if (keepPrevious) {
+    modal.set([...get(modal), ...[name]])
+  } else {
+    modal.set([name])
+  }
+  if (params) {
+    modalParams.set(params)
+  }
 }

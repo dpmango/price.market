@@ -1,0 +1,44 @@
+<script lang="ts">
+  import cns from 'classnames'
+
+  export let title: string | null = null
+</script>
+
+<section>
+  {#if title}
+    <div class="container">
+      <h1 class="pt-3 pb-4 text-2xl font-bold md:pb-5 md:pt-4 md:text-4xl">
+        {title}
+      </h1>
+    </div>
+  {/if}
+
+  <div class={cns('wrapper md:rounded-t-xl md:bg-gray-50 md:py-5', !title && '_noTitle')}>
+    <div class="container">
+      <div class="md:rounded-xl md:bg-white md:px-5 md:py-7">
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @include rmin($md) {
+    .wrapper {
+      min-height: calc(100vh - 55px - 76px);
+      display: flex;
+      flex-direction: column;
+      &._noTitle {
+        min-height: calc(100vh - 55px);
+      }
+      .container {
+        flex: 1 0 auto;
+        display: flex;
+        flex-direction: column;
+        > div {
+          flex: 1 0 auto;
+        }
+      }
+    }
+  }
+</style>

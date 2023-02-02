@@ -1,6 +1,7 @@
-import type { Ref } from 'vue'
 import type { ICategoryDto, ICategoryChilds } from '@/core/interface/Category'
 import type { IOrder } from '@/core/interface/Order'
+import { writable, derived, get } from 'svelte/store'
+import { useApi } from '@/core/api'
 
 const initialState = {
   categoryId: null,
@@ -19,76 +20,64 @@ const initialState = {
   },
 }
 
-export const usePostStore = defineStore('post', () => {
-  const order = ref({ ...initialState }) as Ref<IOrder>
+export const order = writable({ ...initialState } as IOrder)
+export const categories = writable([] as ICategoryDto[])
 
-  const categories = ref([]) as Ref<ICategoryDto[]>
+export const categoriesList = derived(categories, ($categories) => {
+  const mainCategories = $categories.filter((x) => !x.parent_id)
 
-  const categoriesList = computed(() => {
-    const mainCategories = categories.value.filter((x) => !x.parent_id)
+  return mainCategories.map((x) => {
+    const childs = $categories.filter((y) => y.parent_id === x.id)
 
-    return mainCategories.map((x) => {
-      const childs = categories.value.filter((y) => y.parent_id === x.id)
-
-      return {
-        ...x,
-        childs,
-      } as ICategoryChilds
-    })
+    return {
+      ...x,
+      childs,
+    } as ICategoryChilds
   })
-
-  async function getCategories() {
-    const data = (await useApi('categories')) as ICategoryDto[]
-
-    if (data) {
-      categories.value = data
-    }
-
-    return data
-  }
-
-  const updateOrder = (payload: Partial<IOrder>) => {
-    const newState = {
-      ...order.value,
-      ...payload,
-    }
-
-    console.log('store update order ::', { newState })
-    order.value = newState
-
-    return newState
-  }
-
-  const resetLocation = () => {
-    order.value.location = {
-      ...initialState.location,
-    }
-  }
-
-  const resetPrice = () => {
-    order.value.price = {
-      ...initialState.price,
-    }
-  }
-
-  const resetOrder = () => {
-    order.value = {
-      ...initialState,
-    }
-  }
-
-  return {
-    categories,
-    categoriesList,
-    getCategories,
-    order,
-    updateOrder,
-    resetLocation,
-    resetPrice,
-    resetOrder,
-  }
 })
 
-if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(usePostStore, import.meta.hot))
+export const getCategories = async () => {
+  const data = (await useApi('categories')) as ICategoryDto[]
+
+  if (data) {
+    categories.set(data)
+  }
+
+  return { data }
+}
+
+export const updateOrder = (payload: Partial<IOrder>) => {
+  const newState = {
+    ...get(order),
+    ...payload,
+  }
+
+  console.log('store update order ::', { newState })
+  order.set(newState)
+
+  return newState
+}
+
+export const resetLocation = () => {
+  order.set({
+    ...get(order),
+    location: {
+      ...initialState.location,
+    },
+  })
+}
+
+export const resetPrice = () => {
+  order.set({
+    ...get(order),
+    price: {
+      ...initialState.price,
+    },
+  })
+}
+
+export const resetOrder = () => {
+  order.set({
+    ...initialState,
+  })
 }

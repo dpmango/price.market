@@ -1,5 +1,5 @@
-export { default as PostCategories } from './Categories.vue'
-export { default as PostCategory } from './Category.vue'
+export { default as PostCategories } from './Categories.svelte'
+export { default as PostCategory } from './Category.svelte'
 
-export { default as PostDescription } from './Description.vue'
-export { default as PostLocation } from './Location.vue'
+export { default as PostDescription } from './Description.svelte'
+export { default as PostLocation } from './Location.svelte'
